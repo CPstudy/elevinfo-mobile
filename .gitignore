@@ -29,9 +29,6 @@
 .pub/
 /build/
 
-# Important
-**/lib/constants.dart
-
 # Android related
 **/android/**/gradle-wrapper.jar
 **/android/.gradle
