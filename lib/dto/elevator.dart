@@ -6,25 +6,25 @@ class Elevator {
 
   Map<String, dynamic> map = Map();
 
-  String image;
-  String no;
-  String speedAll;
-  String speedMin;
-  String speedHour;
-  String company;
-  String address;
-  String building;
-  String installed;
-  String installedNo;
-  String weight;
-  String person;
-  String weightAndPerson;
-  String upperFloor;
-  String lowerFloor;
-  String serviceFloor;
-  String model;
-  String depart;
-  String type;
+  String? image;
+  String? no;
+  String? speedAll;
+  String? speedMin;
+  String? speedHour;
+  String? company;
+  String? address;
+  String? building;
+  String? installed;
+  String? installedNo;
+  String? weight;
+  String? person;
+  String? weightAndPerson;
+  String? upperFloor;
+  String? lowerFloor;
+  String? serviceFloor;
+  String? model;
+  String? depart;
+  String? type;
 
   Elevator.fromJSON(Map<String, dynamic> json) {
     map = json;
@@ -95,7 +95,11 @@ class Elevator {
     }
   }
 
-  String getImage(String depart, String type) {
+  String getImage(String? depart, String? type) {
+
+    if (depart == null || type == null) {
+      return 'images/icon_questionmark.png';
+    }
 
     if(depart == '엘리베이터') {
       if(type.contains('자동차')) {
@@ -158,13 +162,13 @@ class Elevator {
 }
 
 class InspectData {
-  String startDate;       // 운행시작일
-  String endDate;         // 운행종료일
-  String inspectDate;     // 검사일자
-  String inspectOrg;      // 검사기관
-  String inspectType;     // 검사종류
-  String inspectResult;   // 합격유무
-  int receiptNo;          // 접수번호
+  String? startDate;       // 운행시작일
+  String? endDate;         // 운행종료일
+  String? inspectDate;     // 검사일자
+  String? inspectOrg;      // 검사기관
+  String? inspectType;     // 검사종류
+  String? inspectResult;   // 합격유무
+  int? receiptNo;          // 접수번호
 
   final String noData = '정보 없음';
 

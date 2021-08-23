@@ -2,8 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-// @dart = 2.8
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
@@ -31,8 +29,8 @@ const EdgeInsets _kBackgroundButtonPadding = EdgeInsets.symmetric(
 class CustomButton extends StatefulWidget {
   /// Creates an iOS-style button.
   const CustomButton({
-    Key key,
-    @required this.child,
+    Key? key,
+    required this.child,
     this.padding,
     this.color,
     this.disabledColor = CupertinoColors.quaternarySystemFill,
@@ -56,8 +54,8 @@ class CustomButton extends StatefulWidget {
   /// To specify a custom background color, use the [color] argument of the
   /// default constructor.
   const CustomButton.filled({
-    Key key,
-    @required this.child,
+    Key? key,
+    required this.child,
     this.padding,
     this.disabledColor = CupertinoColors.quaternarySystemFill,
     this.minSize = kMinInteractiveDimensionCupertino,
@@ -82,7 +80,7 @@ class CustomButton extends StatefulWidget {
   /// The amount of space to surround the child inside the bounds of the button.
   ///
   /// Defaults to 16.0 pixels.
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry? padding;
 
   /// The color of the button's background.
   ///
@@ -90,7 +88,7 @@ class CustomButton extends StatefulWidget {
   ///
   /// Defaults to the [CupertinoTheme]'s `primaryColor` when the
   /// [CustomButton.filled] constructor is used.
-  final Color color;
+  final Color? color;
 
   /// The color of the button's background when the button is disabled.
   ///
@@ -103,15 +101,15 @@ class CustomButton extends StatefulWidget {
   /// The callback that is called when the button is tapped or otherwise activated.
   ///
   /// If this is set to null, the button will be disabled.
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   
-  final GestureTapDownCallback onTapDown;
+  final GestureTapDownCallback? onTapDown;
 
-  final GestureTapUpCallback onTapUp;
+  final GestureTapUpCallback? onTapUp;
 
-  final GestureTapCancelCallback onTapCancel;
+  final GestureTapCancelCallback? onTapCancel;
 
-  final GestureLongPressCallback onLongPress;
+  final GestureLongPressCallback? onLongPress;
 
   /// Minimum size of the button.
   ///
@@ -153,8 +151,8 @@ class _CustomButtonState extends State<CustomButton> with SingleTickerProviderSt
   static const Duration kFadeInDuration = Duration(milliseconds: 100);
   final Tween<double> _opacityTween = Tween<double>(begin: 1.0);
 
-  AnimationController _animationController;
-  Animation<double> _opacityAnimation;
+  late AnimationController _animationController;
+  late Animation<double> _opacityAnimation;
 
   @override
   void initState() {
@@ -177,13 +175,12 @@ class _CustomButtonState extends State<CustomButton> with SingleTickerProviderSt
   }
 
   void _setTween() {
-    _opacityTween.end = widget.pressedOpacity ?? 1.0;
+    _opacityTween.end = widget.pressedOpacity;
   }
 
   @override
   void dispose() {
     _animationController.dispose();
-    _animationController = null;
     super.dispose();
   }
 
@@ -191,7 +188,7 @@ class _CustomButtonState extends State<CustomButton> with SingleTickerProviderSt
 
   void _handleTapDown(TapDownDetails event) {
     if(widget.onTapDown != null) {
-      widget.onTapDown(event);
+      widget.onTapDown!(event);
     }
     
     if (!_buttonHeldDown) {
@@ -202,7 +199,7 @@ class _CustomButtonState extends State<CustomButton> with SingleTickerProviderSt
 
   void _handleTapUp(TapUpDetails event) {
     if(widget.onTapUp != null) {
-      widget.onTapUp(event);
+      widget.onTapUp!(event);
     }
     
     if (_buttonHeldDown) {
@@ -213,7 +210,7 @@ class _CustomButtonState extends State<CustomButton> with SingleTickerProviderSt
 
   void _handleTapCancel() {
     if(widget.onTapCancel != null) {
-      widget.onTapCancel();
+      widget.onTapCancel!();
     }
     
     if (_buttonHeldDown) {
@@ -240,9 +237,9 @@ class _CustomButtonState extends State<CustomButton> with SingleTickerProviderSt
     final bool enabled = widget.enabled;
     final CupertinoThemeData themeData = CupertinoTheme.of(context);
     final Color primaryColor = themeData.primaryColor;
-    final Color backgroundColor = widget.color == null
-      ? (widget._filled ? primaryColor : null)
-      : CupertinoDynamicColor.resolve(widget.color, context);
+    final Color? backgroundColor = widget.color == null
+        ? (widget._filled ? primaryColor : null)
+        : CupertinoDynamicColor.maybeResolve(widget.color, context);
 
     final Color foregroundColor = backgroundColor != null
       ? themeData.primaryContrastingColor

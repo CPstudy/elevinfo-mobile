@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 class InspectPage extends StatefulWidget {
 
   InspectPage({
-    @required this.elevator,
+    required this.elevator,
   }) : assert(elevator != null);
 
   final Elevator elevator;
@@ -43,7 +43,7 @@ class _InspectPageState extends State<InspectPage> {
           return TitleScaffold(
             title: '검사이력',
             body: FutureBuilder<List<InspectData>>(
-              future: provider.getInspect(widget.elevator.no.replaceAll('-', '')),
+              future: provider.getInspect(widget.elevator.no!.replaceAll('-', '')),
               builder: (context, snapshot) {
                 if(!snapshot.hasData) {
                   switch(snapshot.connectionState) {
@@ -102,7 +102,7 @@ class _InspectPageState extends State<InspectPage> {
                       );
                   }
                 } else {
-                  List<InspectData> list = snapshot.data;
+                  List<InspectData> list = snapshot.data!;
                   return ListView.separated(
                     controller: _scrollController,
                     padding: EdgeInsets.only(
@@ -112,10 +112,10 @@ class _InspectPageState extends State<InspectPage> {
                     itemCount: list.length,
                     itemBuilder: (context, index) {
                       InspectData data = list[index];
-                      String inspectResult = data.inspectResult;
+                      String? inspectResult = data.inspectResult;
                       Color color = Theme.of(context).primaryColor;
 
-                      if(inspectResult.contains('조건부합격')) {
+                      if(inspectResult!.contains('조건부합격')) {
                         color = Colors.orange;
                       } else if(inspectResult.contains('불합격')) {
                         color = Colors.red;
@@ -142,7 +142,7 @@ class _InspectPageState extends State<InspectPage> {
                             Row(
                               children: [
                                 Text(
-                                  data.inspectResult,
+                                  data.inspectResult!,
                                   style: TextStyle(
                                     height: 1,
                                     color: color,
@@ -155,10 +155,10 @@ class _InspectPageState extends State<InspectPage> {
                                   width: Dimens.marginSmall,
                                 ),
                                 Text(
-                                  data.inspectDate,
+                                  data.inspectDate!,
                                   style: TextStyle(
                                     height: 1,
-                                    color: Theme.of(context).textTheme.headline5.color.withOpacity(0.4),
+                                    color: Theme.of(context).textTheme.headline5?.color?.withOpacity(0.4),
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
                                     fontFamily: FONT_FAMILY,
@@ -178,14 +178,14 @@ class _InspectPageState extends State<InspectPage> {
                             ),
                             InspectItemRow(
                               title: '검사기관　　',
-                              text: data.inspectOrg,
+                              text: data.inspectOrg!,
                             ),
                             SizedBox(
                               height: Dimens.marginTiny,
                             ),
                             InspectItemRow(
                               title: '검사종류　　',
-                              text: data.inspectType,
+                              text: data.inspectType!,
                             ),
                             SizedBox(
                               height: Dimens.marginTiny,
@@ -217,8 +217,8 @@ class _InspectPageState extends State<InspectPage> {
 class InspectItemRow extends StatelessWidget {
 
   InspectItemRow({
-    @required this.title,
-    @required this.text,
+    required this.title,
+    required this.text,
   }) : assert(title != null),
        assert(text != null);
 

@@ -10,6 +10,7 @@ import 'package:elevinfo/screens/result.dart';
 import 'package:elevinfo/screens/search.dart';
 import 'package:elevinfo/screens/setting.dart';
 import 'package:elevinfo/widgets/custom_button.dart';
+import 'package:elevinfo/widgets/progress_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -21,12 +22,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
 
-  AnimationController animationController;
-  Animation<double> offsetAnimation;
-  List<String> numbers = List();
+  late AnimationController animationController;
+  late Animation<double> offsetAnimation;
+  List<String>? numbers = [];
   String number = '승강기 번호';
   bool _visible = false;
-  Timer timer;
+  late Timer timer;
   bool pressed = false;
 
   @override
@@ -69,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   Future getInitNumber() async {
     setState(() {
       Config().getTheme();
-      numbers = Config().getElevatorNo();
+      numbers = Config().getElevatorNo()!;
       if(numbers != null) {
         number = makeNumber();
       }
@@ -89,30 +90,30 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   }
 
   String makeNumber() {
-    if(numbers.length == 0) {
+    if(numbers == null || numbers?.length == 0) {
       return '승강기 번호';
     }
 
     StringBuffer sb = StringBuffer();
 
-    for(int i = 0; i < numbers.length; i++) {
+    for(int i = 0; i < numbers!.length; i++) {
       if(i < 4) {
-        sb.write(numbers[i]);
+        sb.write(numbers![i]);
       } else if(i == 4) {
         sb.write('-');
-        sb.write(numbers[i]);
+        sb.write(numbers![i]);
       } else {
-        sb.write(numbers[i]);
+        sb.write(numbers![i]);
       }
     }
 
     return sb.toString();
   }
 
-  List<String> makeList(String s) {
+  List<String>? makeList(String s) {
     if(s.length != 7) return null;
 
-    List<String> list = List();
+    List<String> list = [];
 
     for(int i = 0; i < s.length; i++) {
       list.add(s.substring(i, i + 1));
@@ -152,22 +153,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
   Future searchElevator({bool qr = false}) async {
     ProgressDialog pd = ProgressDialog(context);
-    pd.style(
-      message: '불러오는 중...',
-      borderRadius: 10.0,
-      backgroundColor: Theme.of(context).canvasColor,
-      progressWidget:Container(
-        padding: EdgeInsets.all(8.0),
-        child: CircularProgressIndicator()
-      ),
-      elevation: 10.0,
-      insetAnimCurve: Curves.easeInOut,
-      messageTextStyle: TextStyle(
-        fontSize: 14.0, fontFamily: 'NanumSquare')
-    );
-    await pd.show();
+    pd.show();
     await DataManager().getElevatorInfo(number.replaceAll('-', '')).then((value) async {
-      await pd.hide();
       if(value == null || value.no == null) {
         showMessage();
         animationController.forward();
@@ -197,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             HapticFeedback.lightImpact();
           }
 
-          if(numbers.length == 7) {
+          if(numbers!.length == 7) {
             animationController.forward();
             if(Platform.isIOS) {
               HapticFeedback.heavyImpact();
@@ -205,12 +192,12 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           }
 
           if(s == '<') {
-            if(numbers.length > 0) {
-              numbers.removeLast();
+            if(numbers!.length > 0) {
+              numbers!.removeLast();
             }
           } else {
-            if(numbers.length < 7) {
-              numbers.add(s);
+            if(numbers!.length < 7) {
+              numbers!.add(s);
             }
           }
 
@@ -304,10 +291,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                           number,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: numbers.length == 0 ? 40 : 54,
+                            fontSize: numbers!.length == 0 ? 40 : 54,
                             fontFamily: 'NanumSquare',
                             fontWeight: FontWeight.w100,
-                            color: numbers.length == 0 ? Colors.white.withOpacity(0.5) : Colors.white,
+                            color: numbers!.length == 0 ? Colors.white.withOpacity(0.5) : Colors.white,
                           ),
                         ),
                       );
@@ -472,14 +459,14 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                     color: Colors.transparent,
                                     child: CupertinoButton(
                                       onPressed: (){
-                                        if(numbers.length == 0) return;
+                                        if(numbers == null || numbers!.length == 0) return;
 
                                         if(Platform.isIOS) {
                                           HapticFeedback.lightImpact();
                                         }
 
-                                        if(numbers.length > 0) {
-                                          numbers.clear();
+                                        if(numbers!.length > 0) {
+                                          numbers!.clear();
                                         }
 
                                         setState(() {
@@ -488,7 +475,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                       },
                                       child: AnimatedOpacity(
                                         duration: Duration(milliseconds: 250),
-                                        opacity: numbers.length == 0 ? 0.0 : 1.0,
+                                        opacity: numbers!.length == 0 ? 0.0 : 1.0,
                                         child: Container(
                                           alignment: Alignment.center,
                                           child: Icon(
@@ -512,14 +499,14 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                       return;
                                     }
 
-                                    if(numbers.length == 0) return;
+                                    if(numbers == null || numbers!.length == 0) return;
 
                                     if(Platform.isIOS) {
                                       HapticFeedback.lightImpact();
                                     }
 
-                                    if(numbers.length > 0) {
-                                      numbers.removeLast();
+                                    if(numbers!.length > 0) {
+                                      numbers!.removeLast();
                                     }
 
                                     setState(() {
@@ -527,15 +514,15 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                     });
                                   },
                                   onTapDown: (_){
-                                    if(numbers.length > 0) {
+                                    if(numbers!.length > 0) {
                                       timer = Timer.periodic(Duration(milliseconds: 75), (timer) {
                                         pressed = true;
                                         if(Platform.isIOS) {
                                           HapticFeedback.lightImpact();
                                         }
 
-                                        if(numbers.length > 0) {
-                                          numbers.removeLast();
+                                        if(numbers!.length > 0) {
+                                          numbers!.removeLast();
                                         } else {
                                           timer.cancel();
                                         }
@@ -554,7 +541,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                   },
                                   child: AnimatedOpacity(
                                     duration: Duration(milliseconds: 250),
-                                    opacity: numbers.length == 0 ? 0.0 : 1.0,
+                                    opacity: numbers!.length == 0 ? 0.0 : 1.0,
                                     child: Container(
                                       alignment: Alignment.center,
                                       child: Icon(
@@ -577,7 +564,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   ),
                   AnimatedOpacity(
                     duration: Duration(milliseconds: 200),
-                    opacity: numbers.length == 7 ? 1.0 : 0.4,
+                    opacity: numbers!.length == 7 ? 1.0 : 0.4,
                     child: Container(
                       width: double.infinity,
                       margin: EdgeInsets.all(Dimens.marginDefault),
@@ -585,11 +572,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                         minSize: 50,
                         color: Theme.of(context).colorScheme.primary,
                         disabledColor: Theme.of(context).colorScheme.primary,
-                        onPressed: numbers.length == 7 ? () => searchElevator() : null,
+                        onPressed: numbers!.length == 7 ? () => searchElevator() : null,
                         child: Text(
                           '검색',
                           style: TextStyle(
-                            color: Theme.of(context).textTheme.bodyText1.color,
+                            color: Theme.of(context).textTheme.bodyText1?.color,
                             fontSize: 16,
                             fontFamily: FONT_FAMILY
                           ),

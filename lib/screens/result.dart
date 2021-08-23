@@ -14,8 +14,8 @@ class ResultScreen extends StatefulWidget {
 class _ResultScreenState extends State<ResultScreen> {
 
   Elevator elevator;
-  List<String> titles = List();
-  List<String> params = List();
+  List<String> titles = [];
+  List<String> params = [];
 
 
   _ResultScreenState(this.elevator) {
@@ -28,7 +28,7 @@ class _ResultScreenState extends State<ResultScreen> {
     double maxWidth = MediaQuery.of(context).size.width - (Dimens.marginDefault * 2) - 100;
 
     return TitleScaffold(
-      title: elevator.no,
+      title: elevator.no!,
       titleRightChild: IconButton(
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) => InspectPage(elevator: widget.elevator)));
@@ -50,7 +50,7 @@ class _ResultScreenState extends State<ResultScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    elevator.company,
+                    elevator.company!,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       color: Colors.white,
@@ -104,7 +104,7 @@ class _ResultScreenState extends State<ResultScreen> {
                                   shape: BoxShape.circle,
                                 ),
                                 child: Image.asset(
-                                  elevator.image,
+                                  elevator.image!,
                                   color: Colors.white,
                                 ),
                               ),
@@ -169,7 +169,7 @@ class _ResultScreenState extends State<ResultScreen> {
                                 child: LimitedBox(
                                   maxWidth: maxWidth,
                                   child: Text(
-                                    elevator.weightAndPerson,
+                                    elevator.weightAndPerson!,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                         color: Colors.white.withOpacity(0.6),
@@ -253,7 +253,6 @@ class _ResultScreenState extends State<ResultScreen> {
                           Fluttertoast.showToast(
                               msg: '\'${elevator.map[params[index]]}\' 복사',
                               toastLength: Toast.LENGTH_SHORT,
-                              timeInSecForIos: 2,
                               backgroundColor: Colors.black54,
                               textColor: Colors.white,
                               fontSize: 16.0,
@@ -280,13 +279,7 @@ class _ResultScreenState extends State<ResultScreen> {
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: Text(
-                                  (){
-                                    if(index == 0) {
-                                      return elevator.no;
-                                    } else {
-                                      return '${elevator.map[params[index]]}';
-                                    }
-                                  }(),
+                                  index == 0 ? elevator.no! : '${elevator.map[params[index]]}',
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontFamily: FONT_FAMILY

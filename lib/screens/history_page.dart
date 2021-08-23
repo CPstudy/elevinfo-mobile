@@ -20,23 +20,7 @@ class HistoryPage extends StatefulWidget {
 class _HistoryPageState extends State<HistoryPage> {
 
   Future searchElevator(String number) async {
-    ProgressDialog pd = ProgressDialog(context);
-    pd.style(
-      message: '불러오는 중...',
-      borderRadius: 10.0,
-      backgroundColor: Theme.of(context).canvasColor,
-      progressWidget:Container(
-        padding: EdgeInsets.all(8.0),
-        child: CircularProgressIndicator()
-      ),
-      elevation: 10.0,
-      insetAnimCurve: Curves.easeInOut,
-      messageTextStyle: TextStyle(
-        fontSize: 14.0, fontFamily: 'NanumSquare')
-    );
-    await pd.show();
     await DataManager().getElevatorInfo(number.replaceAll('-', '')).then((value) async {
-      await pd.hide();
       if(value == null || value.no == null) {
         Fluttertoast.showToast(msg: '정보를 불러오는데 실패했습니다.', backgroundColor: Colors.red);
         if(Platform.isIOS) {
@@ -100,18 +84,18 @@ class _HistoryPageState extends State<HistoryPage> {
                   '히스토리를 모두 지우겠습니까?'
                 ),
                 actions: [
-                  FlatButton(
+                  TextButton(
                     onPressed: () {
                       Navigator.pop(context);
                     },
                     child: Text(
                       '취소',
                       style: TextStyle(
-                        color: Theme.of(context).textTheme.bodyText1.color,
+                        color: Theme.of(context).textTheme.bodyText1?.color,
                       ),
                     ),
                   ),
-                  FlatButton(
+                  TextButton(
                     onPressed: () {
                       Navigator.pop(context);
                     },
@@ -129,13 +113,13 @@ class _HistoryPageState extends State<HistoryPage> {
         },
         icon: Icon(Icons.delete_sharp, color: Colors.white,),
       ),
-      body: FutureBuilder<List<Map<String, dynamic>>>(
+      body: FutureBuilder<List<Map<String, dynamic>>?>(
         future: DatabaseHelper().historyAllList(),
         builder: (context, snapshot) {
           if(!snapshot.hasData) {
             return Container();
           } else {
-            List<Map<String, dynamic>> histories = snapshot.data;
+            List<Map<String, dynamic>> histories = snapshot.data!;
 
             return ListView.separated(
               padding: EdgeInsets.only(
@@ -228,7 +212,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                     child: Text(
                                       header,
                                       textAlign: TextAlign.left,
-                                      style: Theme.of(context).textTheme.headline4.copyWith(
+                                      style: Theme.of(context).textTheme.headline4?.copyWith(
                                         fontSize: 12,
                                       ),
                                     ),
@@ -239,7 +223,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                         height: 1,
-                                        color: Theme.of(context).textTheme.caption.color,
+                                        color: Theme.of(context).textTheme.caption?.color,
                                         fontSize: 12,
                                       ),
                                     ),
@@ -264,7 +248,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                       width: Dimens.marginSmall
                                     ),
                                     Text(
-                                      no ?? '',
+                                      no,
                                       maxLines: 1,
                                       style: Theme.of(context).textTheme.headline5,
                                     ),
@@ -289,7 +273,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                       width: Dimens.marginSmall
                                     ),
                                     Text(
-                                      address1 ?? '',
+                                      address1,
                                       maxLines: 1,
                                       style: Theme.of(context).textTheme.headline5,
                                     ),
@@ -314,7 +298,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                       width: Dimens.marginSmall
                                     ),
                                     Text(
-                                      address2 ?? '',
+                                      address2,
                                       maxLines: 1,
                                       style: Theme.of(context).textTheme.headline5,
                                     ),
@@ -450,8 +434,8 @@ class _HistoryPageState extends State<HistoryPage> {
 class ItemNo extends StatelessWidget {
 
   ItemNo({
-    @required this.no,
-    @required this.searchDate,
+    required this.no,
+    required this.searchDate,
   }) : assert(no != null),
        assert(searchDate != null);
 

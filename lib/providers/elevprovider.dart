@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 class ThemeProvider with ChangeNotifier {
 
 
-  ThemeData _themeData;
+  late ThemeData _themeData;
 
   ThemeProvider() {
     startUp();
@@ -99,10 +99,10 @@ class ThemeProvider with ChangeNotifier {
   }
 
   ThemeData getTheme() {
-    return _themeData ?? getLightTheme();
+    return _themeData;
   }
 
-  setTheme(String type) {
+  setTheme(String? type) {
     if(type == LIGHT_MODE) {
       _themeData = getLightTheme();
     } else if (type == DARK_MODE) {
@@ -111,7 +111,7 @@ class ThemeProvider with ChangeNotifier {
       _themeData = getLightTheme();
     }
 
-    Config().setTheme(type).then((value){
+    Config().setTheme(type ?? LIGHT_MODE).then((value){
       notifyListeners();
     });
   }
@@ -123,7 +123,7 @@ class ElevatorProvider with ChangeNotifier {
   final int pageOfNum = 50;
   bool hasNextPage = true;
   int inspectPage = 0;
-  List<InspectData> inspects = List();
+  List<InspectData> inspects = [];
 
   Future<List<InspectData>> getInspect(String elevatorNo) async {
     if(!hasNextPage) {
@@ -136,7 +136,7 @@ class ElevatorProvider with ChangeNotifier {
       print('url = $url');
 
       try {
-        var response = await http.get(url);
+        var response = await http.get(Uri.parse(url));
 
         Map<String, dynamic> body = json.decode(utf8.decode(response.bodyBytes));
         var result = body['response']['body'];

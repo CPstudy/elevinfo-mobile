@@ -20,17 +20,17 @@ class _ListScreenState extends State<ListScreen> {
   final double textSize = 16;
   final double subTextSize = 12;
 
-  String address1;
-  String address2;
+  String? address1;
+  String? address2;
   int page = 1;
   int beforeCount = -1;
   bool hasNextPage = true;
   bool loading = false;
   bool hasElevators = true;
-  String textTitle;
+  String? textTitle;
 
-  List<Elevator> elevators = List();
-  DataManager dataManager;
+  List<Elevator> elevators = [];
+  DataManager? dataManager;
 
   _ListScreenState(this.address1, this.address2);
 
@@ -65,7 +65,7 @@ class _ListScreenState extends State<ListScreen> {
       setState(() {
         textTitle = '검색 중...';
       });
-      List<Elevator> list = await dataManager.getElevatorList(widget.address1, widget.address2, page);
+      List<Elevator> list = await dataManager!.getElevatorList(widget.address1, widget.address2, page);
 
       setState(() {
         for (int i = 0; i < list.length; i++) {
@@ -91,7 +91,7 @@ class _ListScreenState extends State<ListScreen> {
   Widget listItem(int index) {
     return GestureDetector(
         onTap: () async {
-          await DatabaseHelper().addHistoryAddressToNo(elevators[index].no, address1, address2);
+          await DatabaseHelper().addHistoryAddressToNo(elevators[index].no!, address1, address2);
           Navigator.push(context, MaterialPageRoute(builder: (context) => ResultScreen(elevators[index])));
         },
         child: Container(
@@ -111,7 +111,7 @@ class _ListScreenState extends State<ListScreen> {
                       width: double.infinity,
                       height: 50,
                       child: Image.asset(
-                        elevators[index].image,
+                        elevators[index].image!,
                         color: (elevators[index].no == '번호 없음') ? SColors.red : Theme.of(context).accentColor,
                       ),
                     ),
@@ -125,11 +125,11 @@ class _ListScreenState extends State<ListScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        elevators[index].no,
+                        elevators[index].no!,
                         style: (elevators[index].no == '번호 없음') ? Theme.of(context).textTheme.headline5 : Theme.of(context).textTheme.headline4,
                       ),
                       Text(
-                        elevators[index].company,
+                        elevators[index].company!,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.headline4,
                       ),
@@ -172,7 +172,7 @@ class _ListScreenState extends State<ListScreen> {
                             width: Dimens.marginSmall
                           ),
                           Text(
-                            elevators[index].serviceFloor,
+                            elevators[index].serviceFloor!,
                             style: Theme.of(context).textTheme.headline5,
                           ),
                         ],
@@ -203,7 +203,7 @@ class _ListScreenState extends State<ListScreen> {
                           ),
 
                           Text(
-                            elevators[index].model,
+                            elevators[index].model!,
                             style: Theme.of(context).textTheme.headline5,
                           ),
                         ],
@@ -221,7 +221,7 @@ class _ListScreenState extends State<ListScreen> {
   @override
   Widget build(BuildContext context) {
     return TitleScaffold(
-      title: textTitle,
+      title: textTitle!,
       scrollController: _scrollController,
       body: Stack(
         children: <Widget>[

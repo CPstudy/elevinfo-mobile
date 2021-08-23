@@ -23,8 +23,8 @@ class DatabaseHelper {
     return _instance;
   }
 
-  Database _elevDB;
-  Future<Database> get elevDB async {
+  Database? _elevDB;
+  Future<Database?> get elevDB async {
     if(_elevDB != null) return _elevDB;
     _elevDB = await initDatabase(dbElev);
     return _elevDB;
@@ -52,61 +52,61 @@ class DatabaseHelper {
     return await openDatabase(path);
   }
 
-  Future<List<Map<String, dynamic>>> historyAllList() async {
-    Database db = await elevDB;
+  Future<List<Map<String, dynamic>>?> historyAllList() async {
+    Database? db = await elevDB;
 
-    List<Map<String, dynamic>> list = await db.rawQuery('SELECT * FROM $historyTable ORDER BY id DESC LIMIT 0, 100');
+    List<Map<String, dynamic>>? list = await db?.rawQuery('SELECT * FROM $historyTable ORDER BY id DESC LIMIT 0, 100');
     return list;
   }
 
   Future<int> addHistoryNumber(String no) async {
-    Database db = await elevDB;
+    Database? db = await elevDB;
 
-    int result = await db.rawInsert(
+    int? result = await db?.rawInsert(
       'INSERT INTO $historyTable (no, address1, address2, search_date, search_type) VALUES (?, ?, ?, ?, ?)',
       [no, null, null, DateTime.now().toString(), historyNo],
     );
 
-    return result;
+    return result ?? 0;
   }
 
   Future<int> addHistoryAddress(String address1, String address2) async {
-    Database db = await elevDB;
+    Database? db = await elevDB;
 
-    int result = await db.rawInsert(
+    int? result = await db?.rawInsert(
       'INSERT INTO $historyTable (no, address1, address2, search_date, search_type) VALUES (?, ?, ?, ?, ?)',
       [null, address1, address2, DateTime.now().toString(), historyAddress],
     );
 
-    return result;
+    return result ?? 0;
   }
 
-  Future<int> addHistoryAddressToNo(String no, String address1, String address2) async {
-    Database db = await elevDB;
+  Future<int> addHistoryAddressToNo(String? no, String? address1, String? address2) async {
+    Database? db = await elevDB;
 
-    int result = await db.rawInsert(
+    int? result = await db?.rawInsert(
       'INSERT INTO $historyTable (no, address1, address2, search_date, search_type) VALUES (?, ?, ?, ?, ?)',
       [no, address1, address2, DateTime.now().toString(), historyAddressToNo],
     );
 
-    return result;
+    return result ?? 0;
   }
 
   Future<int> addHistoryQR(String no) async {
-    Database db = await elevDB;
+    Database? db = await elevDB;
 
-    int result = await db.rawInsert(
+    int? result = await db?.rawInsert(
       'INSERT INTO $historyTable (no, address1, address2, search_date, search_type) VALUES (?, ?, ?, ?, ?)',
       [no, null, null, DateTime.now().toString(), historyQR],
     );
 
-    return result;
+    return result ?? 0;
   }
   
   Future<int> deleteHistory(int id) async {
-    Database db = await elevDB;
+    Database? db = await elevDB;
     
-    int result = await db.rawDelete('DELETE FROM $historyTable WHERE id = ?', [id]);
-    return result;
+    int? result = await db?.rawDelete('DELETE FROM $historyTable WHERE id = ?', [id]);
+    return result ?? 0;
   }
 }

@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:elevinfo/essential.dart';
-import 'package:swipedetector/swipedetector.dart';
 import 'package:flutter/services.dart';
 
 class CoreButton extends StatelessWidget {
@@ -16,19 +15,19 @@ class CoreButton extends StatelessWidget {
     this.borderRadius,
   });
 
-  final Widget child;
+  final Widget? child;
 
   final double width;
 
   final double height;
 
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
 
-  final Color color;
+  final Color? color;
 
-  final GestureTapCallback onTap;
+  final GestureTapCallback? onTap;
 
-  final BorderRadius borderRadius;
+  final BorderRadius? borderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -59,12 +58,6 @@ class CoreButton extends StatelessWidget {
 
 class TitleButton extends StatefulWidget {
 
-  Widget child;
-  double width;
-  double height;
-  EdgeInsets padding;
-  GestureTapCallback onTap;
-
   TitleButton({
     this.child,
     this.width: Dimens.titleBarHeight,
@@ -72,6 +65,16 @@ class TitleButton extends StatefulWidget {
     this.padding,
     this.onTap,
   });
+
+  final Widget? child;
+
+  final double width;
+
+  final double height;
+
+  final EdgeInsets? padding;
+
+  final GestureTapCallback? onTap;
 
   @override
   _TitleButtonState createState() => _TitleButtonState();
@@ -105,17 +108,6 @@ class _TitleButtonState extends State<TitleButton> {
 
 class TitleScaffold extends StatefulWidget {
 
-  Widget body;
-  Widget titleLeftChild;
-  Widget titleRightChild;
-  String title;
-  bool backButton;
-  bool visibilityTitle = true;
-  bool titleBar;
-  bool backSwipe;
-  Color backgroundColor;
-  ScrollController scrollController;
-
   TitleScaffold({
     this.body,
     this.title: '',
@@ -126,11 +118,27 @@ class TitleScaffold extends StatefulWidget {
     this.backSwipe: true,
     this.backgroundColor,
     this.scrollController,
-  }) {
-    if(title == null || title == '') {
-      visibilityTitle = false;
-    }
-  }
+  });
+
+  final Widget? body;
+
+  final Widget? titleLeftChild;
+
+  final Widget? titleRightChild;
+
+  final String? title;
+
+  final bool backButton;
+
+  final bool visibilityTitle = true;
+
+  final bool titleBar;
+
+  final bool backSwipe;
+
+  final Color? backgroundColor;
+
+  final ScrollController? scrollController;
 
   @override
   _TitleScaffoldState createState() => _TitleScaffoldState();
@@ -140,8 +148,8 @@ class _TitleScaffoldState extends State<TitleScaffold> {
 
   Widget titleBar() {
 
-    List<Widget> leftWidgets = List();
-    List<Widget> rightWidgets = List();
+    List<Widget> leftWidgets = [];
+    List<Widget> rightWidgets = [];
 
     leftWidgets.add(
         Visibility(
@@ -160,21 +168,18 @@ class _TitleScaffoldState extends State<TitleScaffold> {
     );
 
     if(widget.titleLeftChild != null) {
-      leftWidgets.add(widget.titleLeftChild);
+      leftWidgets.add(widget.titleLeftChild!);
     }
 
     if(widget.titleRightChild != null) {
-      rightWidgets.add(widget.titleRightChild);
+      rightWidgets.add(widget.titleRightChild!);
     }
 
     return Column(
       children: <Widget>[
         GestureDetector(
           onTap: (){
-            print('pressed');
-            if(widget.scrollController != null) {
-              widget.scrollController.animateTo(0, duration: Duration(milliseconds: 250), curve: Curves.easeInOut);
-            }
+            widget.scrollController?.animateTo(0, duration: Duration(milliseconds: 250), curve: Curves.easeInOut);
           },
           child: Container(
             width: MediaQuery.of(context).size.width,
@@ -194,14 +199,14 @@ class _TitleScaffoldState extends State<TitleScaffold> {
               children: leftWidgets,
             ),
             Visibility(
-              visible: widget.visibilityTitle,
+              visible: widget.title == null && widget.title! == '' || !widget.visibilityTitle ? false : true,
               child: Align(
                   alignment: Alignment.center,
                   child: Stack(
                     children: <Widget>[
                       // Stroked text as border.
                       Text(
-                        widget.title,
+                        widget.title ?? '',
                         style: TextStyle(
                           fontSize: 18,
                           fontFamily: FONT_FAMILY,
@@ -213,7 +218,7 @@ class _TitleScaffoldState extends State<TitleScaffold> {
                       ),
                       // Solid text as fill.
                       Text(
-                        widget.title,
+                        widget.title ?? '',
                         style: TextStyle(
                           fontSize: 18,
                           fontFamily: FONT_FAMILY,
@@ -241,36 +246,25 @@ class _TitleScaffoldState extends State<TitleScaffold> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
-        child: SwipeDetector(
-          onSwipeRight: (){
-            if(widget.backSwipe) {
-              Navigator.pop(context);
-            }
-          },
-          swipeConfiguration: SwipeConfiguration(
-            horizontalSwipeMaxHeightThreshold: 50.0,
-            horizontalSwipeMinDisplacement:20.0,
-          ),
-          child: Container(
-            height: double.infinity,
-            color: Colors.transparent,
-            child: Stack(
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    Visibility(
-                      visible: widget.titleBar,
-                      child: titleBar(),
+        child: Container(
+          height: double.infinity,
+          color: Colors.transparent,
+          child: Stack(
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  Visibility(
+                    visible: widget.titleBar,
+                    child: titleBar(),
+                  ),
+                  Expanded(
+                    child: Container(
+                      child: widget.body,
                     ),
-                    Expanded(
-                      child: Container(
-                        child: widget.body,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

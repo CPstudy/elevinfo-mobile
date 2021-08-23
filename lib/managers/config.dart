@@ -12,8 +12,8 @@ class Config {
 
   Config._internal();
 
-  SharedPreferences _prefs;
-  String type = SYSTEM_MODE;
+  late SharedPreferences _prefs;
+  String? type = SYSTEM_MODE;
 
   Future<SharedPreferences> init() async {
     _prefs = await SharedPreferences.getInstance();
@@ -34,8 +34,8 @@ class Config {
     await _prefs.setString('elevatorNo', no);
   }
 
-  List<String> getElevatorNo() {
-    String no;
+  List<String>? getElevatorNo() {
+    String? no;
 
     if(_prefs.containsKey('elevatorNo')) {
       no = _prefs.getString('elevatorNo');
@@ -43,7 +43,7 @@ class Config {
       return [];
     }
 
-    List<String> list = List();
+    List<String> list = [];
 
     if(no == null || no.length != 7) {
       return null;

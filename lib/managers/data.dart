@@ -8,13 +8,13 @@ class DataManager {
   int totalPage = 0;
   int beforeCount = -1;
 
-  Future<Elevator> getElevatorInfo(String no) async {
+  Future<Elevator?> getElevatorInfo(String no) async {
     final String URL_CONNECT = '$URL_VIEW$KEY$NUMBER$no';
 
     print(URL_CONNECT);
 
     try {
-      var response = await http.get(URL_CONNECT);
+      var response = await http.get(Uri.parse(URL_CONNECT));
 
       Map<String, dynamic> body = json.decode(utf8.decode(response.bodyBytes));
       var result = body['response']['body'];
@@ -39,7 +39,7 @@ class DataManager {
 
     print(URL_CONNECT);
 
-    var response = await http.get(URL_CONNECT);
+    var response = await http.get(Uri.parse(URL_CONNECT));
 
     Map<String, dynamic> body = json.decode(utf8.decode(response.bodyBytes));
     var result = body['response']['body'];

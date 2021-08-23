@@ -135,7 +135,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   child: Text(
                     '검색',
                     style: TextStyle(
-                      color: Theme.of(context).textTheme.bodyText1.color,
+                      color: Theme.of(context).textTheme.bodyText1?.color,
                       fontSize: 16,
                       fontFamily: FONT_FAMILY
                     ),
