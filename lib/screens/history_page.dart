@@ -6,6 +6,7 @@ import 'package:elevinfo/managers/databasehelper.dart';
 import 'package:elevinfo/providers/elevprovider.dart';
 import 'package:elevinfo/screens/list.dart';
 import 'package:elevinfo/screens/result.dart';
+import 'package:elevinfo/widgets/progress_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,7 +21,10 @@ class HistoryPage extends StatefulWidget {
 class _HistoryPageState extends State<HistoryPage> {
 
   Future searchElevator(String number) async {
+    ProgressDialog pd = ProgressDialog(context);
+    pd.show();
     await DataManager().getElevatorInfo(number.replaceAll('-', '')).then((value) async {
+      pd.hide();
       if(value == null || value.no == null) {
         Fluttertoast.showToast(msg: '정보를 불러오는데 실패했습니다.', backgroundColor: Colors.red);
         if(Platform.isIOS) {
@@ -134,9 +138,9 @@ class _HistoryPageState extends State<HistoryPage> {
 
                 Map<String, dynamic> history = histories[index - 1];
                 int id = history['id'];
-                String no = history['no'];
-                String address1 = history['address1'];
-                String address2 = history['address2'];
+                String? no = history['no'];
+                String? address1 = history['address1'];
+                String? address2 = history['address2'];
                 String searchDate = history['search_date'];
                 int searchType = history['search_type'];
 
@@ -175,11 +179,11 @@ class _HistoryPageState extends State<HistoryPage> {
                       case 0:
                       case 2:
                       case 3:
-                        searchElevator(no);
+                        searchElevator(no!);
                         break;
 
                       case 1:
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => ListScreen(address1, address2)));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => ListScreen(address1!, address2!)));
                     }
                   },
                   child: Container(
@@ -248,7 +252,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                       width: Dimens.marginSmall
                                     ),
                                     Text(
-                                      no,
+                                      no ?? '',
                                       maxLines: 1,
                                       style: Theme.of(context).textTheme.headline5,
                                     ),
@@ -273,7 +277,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                       width: Dimens.marginSmall
                                     ),
                                     Text(
-                                      address1,
+                                      address1 ?? '',
                                       maxLines: 1,
                                       style: Theme.of(context).textTheme.headline5,
                                     ),
@@ -298,7 +302,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                       width: Dimens.marginSmall
                                     ),
                                     Text(
-                                      address2,
+                                      address2 ?? '',
                                       maxLines: 1,
                                       style: Theme.of(context).textTheme.headline5,
                                     ),

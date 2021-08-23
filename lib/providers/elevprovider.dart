@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 
 class ThemeProvider with ChangeNotifier {
 
-
   late ThemeData _themeData;
 
   ThemeProvider() {

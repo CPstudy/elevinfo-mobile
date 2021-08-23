@@ -10,4 +10,6 @@ class Dimens {
   static const double textTiny = 12;
   static const double textDefault = 16;
   static const double textMedium = 18;
+
+  static const double borderRadius = 16.0;
 }

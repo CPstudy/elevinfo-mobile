@@ -155,6 +155,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     ProgressDialog pd = ProgressDialog(context);
     pd.show();
     await DataManager().getElevatorInfo(number.replaceAll('-', '')).then((value) async {
+      pd.hide();
       if(value == null || value.no == null) {
         showMessage();
         animationController.forward();
