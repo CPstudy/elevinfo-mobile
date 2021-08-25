@@ -232,7 +232,7 @@ class _ResultScreenState extends State<ResultScreen> {
                     padding: EdgeInsets.all(Dimens.marginSmall),
                     decoration: BoxDecoration(
                       color: Theme.of(context).cardColor,
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(Dimens.borderRadius),
                       boxShadow: [
                         new BoxShadow(
                             color: Colors.black12,

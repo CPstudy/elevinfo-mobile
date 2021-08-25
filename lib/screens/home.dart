@@ -570,7 +570,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       width: double.infinity,
                       margin: EdgeInsets.all(Dimens.marginDefault),
                       child: CupertinoButton(
-                        minSize: 50,
+                        borderRadius: BorderRadius.circular(Dimens.borderRadius),
+                        minSize: Dimens.buttonHeight,
                         color: Theme.of(context).colorScheme.primary,
                         disabledColor: Theme.of(context).colorScheme.primary,
                         onPressed: numbers!.length == 7 ? () => searchElevator() : null,

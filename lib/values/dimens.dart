@@ -12,4 +12,6 @@ class Dimens {
   static const double textMedium = 18;
 
   static const double borderRadius = 16.0;
+
+  static const double buttonHeight = 56.0;
 }

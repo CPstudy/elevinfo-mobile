@@ -60,7 +60,7 @@ class _SettingScreenState extends State<SettingScreen> {
             padding: EdgeInsets.all(Dimens.marginDefault),
             decoration: BoxDecoration(
               color: Theme.of(context).cardColor,
-              borderRadius: BorderRadius.circular(5),
+              borderRadius: BorderRadius.circular(Dimens.borderRadius),
               boxShadow: [
                 new BoxShadow(
                     color: Colors.black12,
@@ -91,7 +91,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   height: 100,
                                   child: Image.asset('images/theme_light.png'),
                                 ),
-                                borderRadius: BorderRadius.circular(5),
+                                borderRadius: BorderRadius.circular(8),
                               ),
                               Container(
                                 height: Dimens.marginSmall,
@@ -133,7 +133,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   height: 100,
                                   child: Image.asset('images/theme_dark.png'),
                                 ),
-                                borderRadius: BorderRadius.circular(5),
+                                borderRadius: BorderRadius.circular(8),
                               ),
                               Container(
                                 height: Dimens.marginSmall,
@@ -175,7 +175,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   height: 100,
                                   child: Image.asset('images/theme_auto.png'),
                                 ),
-                                borderRadius: BorderRadius.circular(5),
+                                borderRadius: BorderRadius.circular(8),
                               ),
                               Container(
                                 height: Dimens.marginSmall,
@@ -226,7 +226,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     Align(
                       alignment: Alignment.centerRight,
                       child: Text(
-                        '2.3.0',
+                        '2.3.1',
                         style: TextStyle(
                             fontSize: 14,
                             fontFamily: FONT_FAMILY
@@ -283,6 +283,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         throw 'Could not launch $url';
                       }
                     },
+                    borderRadius: BorderRadius.circular(Dimens.borderRadius),
                     color: Color(0xffffdf2c),
                     child: Text(
                       '엘베인포 카카오톡',
@@ -293,6 +294,13 @@ class _SettingScreenState extends State<SettingScreen> {
                       ),
                     ),
                   ),
+                ),
+                SizedBox(
+                  height: Dimens.marginDefault,
+                ),
+                Text(
+                  '엘베인포는 공식 앱이 아닌 개인이 제작한 앱 입니다.',
+                  style: Theme.of(context).textTheme.caption,
                 ),
               ],
             ),

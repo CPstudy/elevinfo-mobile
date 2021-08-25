@@ -123,7 +123,8 @@ class _SearchScreenState extends State<SearchScreen> {
                 width: double.infinity,
                 margin: EdgeInsets.all(Dimens.marginDefault),
                 child: CupertinoButton(
-                  minSize: 50,
+                  borderRadius: BorderRadius.circular(Dimens.borderRadius),
+                  minSize: Dimens.buttonHeight,
                   color: Theme.of(context).colorScheme.primary,
                   onPressed: () async {
                     await DatabaseHelper().addHistoryAddress(addressController1.text, addressController2.text);
