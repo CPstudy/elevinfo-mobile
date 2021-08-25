@@ -9,7 +9,7 @@ class DataManager {
   int beforeCount = -1;
 
   Future<Elevator?> getElevatorInfo(String no) async {
-    final String URL_CONNECT = '$URL_VIEW$KEY$NUMBER$no';
+    final String URL_CONNECT = 'https://pearlobsidian.gabia.io/elevator/view?number=$no';
 
     print(URL_CONNECT);
 
@@ -17,12 +17,12 @@ class DataManager {
       var response = await http.get(Uri.parse(URL_CONNECT));
 
       Map<String, dynamic> body = json.decode(utf8.decode(response.bodyBytes));
-      var result = body['response']['body'];
+      var code = body['code'];
 
-      if(result == null || result == '') {
+      if(code != 'SUC-000') {
         return null;
       } else {
-        Map<String, dynamic> map = result['item'];
+        Map<String, dynamic> map = body['response'];
         Elevator elevator = Elevator.fromJSON(map);
 
         return elevator;

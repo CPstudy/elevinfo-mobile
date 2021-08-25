@@ -75,6 +75,7 @@ class Elevator {
         s = '0$s';
       }
 
+      print(map['ratedSpeed']);
       s = '${(double.parse(s) * 60).toStringAsFixed(1)}';
 
       String m = '${(double.parse(s) % 1)}';

@@ -76,6 +76,7 @@ class ProgressDialog {
       context: _context,
       builder: (_context) => dialog,
       barrierColor: Colors.black.withOpacity(0.01),
+      barrierDismissible: false,
     ).then((value) => this.isShowing = true);
   }
 
