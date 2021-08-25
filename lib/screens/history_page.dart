@@ -23,8 +23,27 @@ class _HistoryPageState extends State<HistoryPage> {
   Future searchElevator(String number) async {
     ProgressDialog pd = ProgressDialog(context);
     pd.show();
-    await DataManager().getElevatorInfo(number.replaceAll('-', '')).then((value) async {
+    await DataManager().getElevatorInfo(number.replaceAll('-', '')).then((responseData) async {
       pd.hide();
+
+      if (responseData == null) {
+        Fluttertoast.showToast(msg: '정보를 가져오는데 오류가 발생했습니다.', backgroundColor: Colors.red);
+        if(Platform.isIOS) {
+          HapticFeedback.heavyImpact();
+        }
+        return;
+      }
+
+      if (responseData.code == 'ERR-301') {
+        Fluttertoast.showToast(msg: responseData.message!, backgroundColor: Colors.red);
+        if(Platform.isIOS) {
+          HapticFeedback.heavyImpact();
+        }
+        return;
+      }
+
+      Elevator? value = responseData.elevator;
+
       if(value == null || value.no == null) {
         Fluttertoast.showToast(msg: '정보를 불러오는데 실패했습니다.', backgroundColor: Colors.red);
         if(Platform.isIOS) {

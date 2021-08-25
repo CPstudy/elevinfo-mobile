@@ -1,3 +1,4 @@
+import 'package:elevinfo/dto/response.dart';
 import 'package:elevinfo/essential.dart';
 import 'package:http/http.dart' as http;
 
@@ -8,28 +9,29 @@ class DataManager {
   int totalPage = 0;
   int beforeCount = -1;
 
-  Future<Elevator?> getElevatorInfo(String no) async {
+  Future<ResponseData?> getElevatorInfo(String no) async {
     final String URL_CONNECT = 'https://pearlobsidian.gabia.io/elevator/view?number=$no';
-
-    print(URL_CONNECT);
+    ResponseData responseData = ResponseData();
 
     try {
       var response = await http.get(Uri.parse(URL_CONNECT));
 
       Map<String, dynamic> body = json.decode(utf8.decode(response.bodyBytes));
-      var code = body['code'];
+      responseData.code = body['code'];
+      responseData.message = body['message'];
 
-      if(code != 'SUC-000') {
-        return null;
+      if(responseData.code != 'SUC-000') {
+        return responseData;
       } else {
         Map<String, dynamic> map = body['response'];
         Elevator elevator = Elevator.fromJSON(map);
-
-        return elevator;
+        responseData.elevator = elevator;
       }
     } catch(e) {
-      return null;
+      print('에러 :: $e');
     }
+
+    return responseData;
   }
 
   Future<List<Elevator>> getElevatorList(String address1, String address2, int page) async {

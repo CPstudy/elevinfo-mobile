@@ -26,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   late Animation<double> offsetAnimation;
   List<String>? numbers = [];
   String number = '승강기 번호';
+  String alertMessage = '정보를 가져오는데 오류가 발생했습니다.';
   bool _visible = false;
   late Timer timer;
   bool pressed = false;
@@ -77,9 +78,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     });
   }
 
-  void showMessage() {
+  void showMessage({String message = '정보를 가져오는데 오류가 발생했습니다.'}) {
     setState(() {
       _visible = true;
+      alertMessage = message;
     });
 
     Future.delayed(Duration(seconds: 3), (){
@@ -154,14 +156,28 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   Future searchElevator({bool qr = false}) async {
     ProgressDialog pd = ProgressDialog(context);
     pd.show();
-    await DataManager().getElevatorInfo(number.replaceAll('-', '')).then((value) async {
+    await DataManager().getElevatorInfo(number.replaceAll('-', '')).then((responseData) async {
       pd.hide();
+
+      if (responseData == null) {
+        showMessage();
+        return;
+      }
+
+      if (responseData.code == 'ERR-301') {
+        showMessage(message: responseData.message!);
+        return;
+      }
+
+      Elevator? value = responseData.elevator;
+
       if(value == null || value.no == null) {
         showMessage();
         animationController.forward();
         if(Platform.isIOS) {
           HapticFeedback.heavyImpact();
         }
+
       } else {
         Config().setElevatorNo(number.replaceAll('-', '')).then((v) async {
           if(qr) {
@@ -319,7 +335,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: Text(
-                      '승강기 정보를 찾을 수 없습니다',
+                      alertMessage,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
