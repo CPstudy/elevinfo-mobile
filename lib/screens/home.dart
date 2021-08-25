@@ -318,34 +318,34 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                     }
                   ),
                 ),
-                AnimatedOpacity(
-                  opacity: _visible ? 1.0 : 0.0,
-                  duration: Duration(milliseconds: 500),
-                  curve: (_visible) ? Curves.decelerate : Curves.easeIn,
-                  child: Container(
-                    width: double.infinity,
-                    margin: EdgeInsets.only(
-                      top: Dimens.marginSmall,
-                      left: Dimens.marginDefault,
-                      right: Dimens.marginDefault
-                    ),
-                    padding: EdgeInsets.all(Dimens.marginDefault),
-                    decoration: BoxDecoration(
-                      color: SColors.red,
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Text(
-                      alertMessage,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'NanumSquare',
-                      ),
-                    ),
-                  ),
-                ),
               ],
+            ),
+          ),
+          AnimatedOpacity(
+            opacity: _visible ? 1.0 : 0.0,
+            duration: Duration(milliseconds: 500),
+            curve: (_visible) ? Curves.decelerate : Curves.easeIn,
+            child: Container(
+              width: double.infinity,
+              margin: EdgeInsets.only(
+                  top: Dimens.marginSmall,
+                  left: Dimens.marginDefault,
+                  right: Dimens.marginDefault
+              ),
+              padding: EdgeInsets.all(Dimens.marginDefault),
+              decoration: BoxDecoration(
+                color: SColors.red,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Text(
+                alertMessage,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'NanumSquare',
+                ),
+              ),
             ),
           ),
           SafeArea(
