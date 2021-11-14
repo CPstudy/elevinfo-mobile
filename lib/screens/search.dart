@@ -161,7 +161,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                     provider.address1 == '' ? sido : provider.address1,
                                     style: TextStyle(
                                         color: Colors.black,
-                                        fontFamily: FONT_FAMILY
+                                        fontSize: 14,
+                                        fontFamily: FONT_FAMILY,
                                     ),
                                   ),
                                 ),
@@ -203,7 +204,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                     provider.address2 == '' ? sigungu : provider.address2,
                                     style: TextStyle(
                                         color: Colors.black,
-                                        fontFamily: FONT_FAMILY
+                                        fontSize: 14,
+                                        fontFamily: FONT_FAMILY,
                                     ),
                                   ),
                                 ),
@@ -312,6 +314,7 @@ class SelectListPanel extends StatelessWidget {
               list[index],
               style: TextStyle(
                 color: Theme.of(context).textTheme.bodyText1?.color,
+                fontFamily: FONT_FAMILY,
               ),
             ),
           );
