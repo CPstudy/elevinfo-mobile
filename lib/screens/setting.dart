@@ -226,7 +226,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     Align(
                       alignment: Alignment.centerRight,
                       child: Text(
-                        '2.4.1',
+                        '2.4.2',
                         style: TextStyle(
                             fontSize: 14,
                             fontFamily: FONT_FAMILY

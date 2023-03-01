@@ -3,8 +3,8 @@ const String LIGHT_MODE = 'light';
 const String DARK_MODE = 'dark';
 const String SYSTEM_MODE = 'system';
 
-const String URL_VIEW = 'http://openapi.elevator.go.kr/openapi/service/ElevatorInformationService/getElevatorView?ServiceKey=';
-const String URL_LIST = 'http://openapi.elevator.go.kr/openapi/service/ElevatorInformationService/getElevatorList?ServiceKey=';
+const String URL_VIEW = 'http://openapi.elevator.go.kr/openapi/service/ElevatorInformationService/getElevatorViewN?ServiceKey=';
+const String URL_LIST = 'http://openapi.elevator.go.kr/openapi/service/ElevatorInformationService/getElevatorListN?ServiceKey=';
 const String KEY = 'Gs5DfSUBnVmIYae2tg%2FH7bl%2B8tWJr%2BO6c%2BeWWBhmJkzzBGxGo2%2FblgoF9rcBHVUR9kUq5R%2BQm%2FO04zN06%2BDW5Q%3D%3D';
 const String NUMBER = '&_type=json&elevator_no=';
 
