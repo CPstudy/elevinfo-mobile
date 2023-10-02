@@ -7,8 +7,8 @@ class CoreButton extends StatelessWidget {
 
   CoreButton({
     this.child,
-    this.width: Dimens.titleBarHeight,
-    this.height: Dimens.titleBarHeight,
+    this.width = Dimens.titleBarHeight,
+    this.height = Dimens.titleBarHeight,
     this.padding,
     this.color,
     this.onTap,
@@ -60,8 +60,8 @@ class TitleButton extends StatefulWidget {
 
   TitleButton({
     this.child,
-    this.width: Dimens.titleBarHeight,
-    this.height: Dimens.titleBarHeight,
+    this.width = Dimens.titleBarHeight,
+    this.height = Dimens.titleBarHeight,
     this.padding,
     this.onTap,
   });
@@ -110,12 +110,12 @@ class TitleScaffold extends StatefulWidget {
 
   TitleScaffold({
     this.body,
-    this.title: '',
-    this.backButton: true,
+    this.title = '',
+    this.backButton = true,
     this.titleLeftChild,
     this.titleRightChild,
-    this.titleBar: true,
-    this.backSwipe: true,
+    this.titleBar = true,
+    this.backSwipe = true,
     this.backgroundColor,
     this.scrollController,
   });

@@ -269,7 +269,7 @@ class _ResultScreenState extends State<ResultScreen> {
                                 child: Text(
                                   titles[index],
                                   style: TextStyle(
-                                      color: Theme.of(context).accentColor,
+                                      color: Theme.of(context).primaryColor,
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
                                       fontFamily: FONT_FAMILY

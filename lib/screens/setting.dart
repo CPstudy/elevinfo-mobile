@@ -17,7 +17,7 @@ class _SettingScreenState extends State<SettingScreen> {
       height: 20,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        border: Border.all(width: 2, color: Theme.of(context).accentColor),
+        border: Border.all(width: 2, color: Theme.of(context).primaryColor),
       ),
     );
   }
@@ -31,7 +31,7 @@ class _SettingScreenState extends State<SettingScreen> {
           height: 20,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            border: Border.all(width: 2, color: Theme.of(context).accentColor),
+            border: Border.all(width: 2, color: Theme.of(context).primaryColor),
           ),
         ),
         Container(
@@ -39,7 +39,7 @@ class _SettingScreenState extends State<SettingScreen> {
           height: 10,
           decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Theme.of(context).accentColor
+              color: Theme.of(context).primaryColor
           ),
         ),
       ],
@@ -216,7 +216,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       child: Text(
                         '버전',
                         style: TextStyle(
-                          color: Theme.of(context).accentColor,
+                          color: Theme.of(context).primaryColor,
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
                           fontFamily: FONT_FAMILY
@@ -247,7 +247,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       child: Text(
                         '정보 제공',
                         style: TextStyle(
-                          color: Theme.of(context).accentColor,
+                          color: Theme.of(context).primaryColor,
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
                           fontFamily: FONT_FAMILY
