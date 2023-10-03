@@ -202,7 +202,7 @@ class _HistoryPageState extends State<HistoryPage> {
                         break;
 
                       case 1:
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => ListScreen(address1!, address2!)));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => ListScreen(address1!, '', address2!)));
                     }
                   },
                   child: Container(

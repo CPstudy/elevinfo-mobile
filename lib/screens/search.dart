@@ -216,10 +216,6 @@ class _SearchScreenState extends State<SearchScreen> {
                         SizedBox(
                           height: Dimens.marginSmall,
                         ),
-                        textInput(addressController1, '도로명'),
-                        SizedBox(
-                          height: Dimens.marginSmall,
-                        ),
                         textInput(addressController2, '건물명'),
                         SizedBox(
                           height: Dimens.marginSmall,
@@ -237,23 +233,9 @@ class _SearchScreenState extends State<SearchScreen> {
                         minSize: Dimens.buttonHeight,
                         color: Theme.of(context).colorScheme.primary,
                         onPressed: () async {
-                          String firstAddress = '';
-
-                          if (provider.address1 != '') {
-                            firstAddress += provider.address1 + ' ';
-                          }
-
-                          if (provider.address2 != '') {
-                            firstAddress += provider.address2 + ' ';
-                          }
-
-                          if (addressController1.text != '') {
-                            firstAddress += addressController1.text + ' ';
-                          }
-
-                          await DatabaseHelper().addHistoryAddress(firstAddress, addressController2.text);
                           Navigator.push(context, MaterialPageRoute(builder: (context) => ListScreen(
-                              firstAddress,
+                              provider.address1,
+                              provider.address2,
                               addressController2.text
                           )));
                         },

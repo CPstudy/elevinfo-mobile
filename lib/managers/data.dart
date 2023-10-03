@@ -34,14 +34,27 @@ class DataManager {
     return responseData;
   }
 
-  Future<List<Elevator>> getElevatorList(String address1, String address2, int page) async {
+  Future<List<Elevator>> getElevatorList(String sido, String sigungu, String building, int page) async {
 
-    final String URL_CONNECT = '$URL_LIST$KEY&_type=json&sido=$address1&buld_nm=$address2&numOfRows=100&pageNo=$page';
+    String urlConnect = '$URL_LIST$KEY&_type=json&numOfRows=100&pageNo=$page';
+
+    if (sido.isNotEmpty) {
+      urlConnect += '&sido=$sido';
+    }
+
+    if (sigungu.isNotEmpty) {
+      urlConnect += '&sigungu=$sigungu';
+    }
+
+    if (building.isNotEmpty) {
+      urlConnect += '&buld_nm=$building';
+    }
+
     List<Elevator> elevators = [];
 
-    print(URL_CONNECT);
+    print(urlConnect);
 
-    var response = await http.get(Uri.parse(URL_CONNECT));
+    var response = await http.get(Uri.parse(urlConnect));
 
     Map<String, dynamic> body = json.decode(utf8.decode(response.bodyBytes));
     var result = body['response']['body'];

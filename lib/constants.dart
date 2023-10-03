@@ -3,12 +3,12 @@ const String LIGHT_MODE = 'light';
 const String DARK_MODE = 'dark';
 const String SYSTEM_MODE = 'system';
 
-const String URL_VIEW = 'http://openapi.elevator.go.kr/openapi/service/ElevatorInformationService/getElevatorViewN?ServiceKey=';
-const String URL_LIST = 'http://openapi.elevator.go.kr/openapi/service/ElevatorInformationService/getElevatorListN?ServiceKey=';
+const String URL_VIEW = 'http://openapi.elevator.go.kr/openapi/service/ElevatorInformationService/getElevatorViewM?ServiceKey=';
+const String URL_LIST = 'http://openapi.elevator.go.kr/openapi/service/ElevatorInformationService/getElevatorListM?ServiceKey=';
 const String KEY = 'Gs5DfSUBnVmIYae2tg%2FH7bl%2B8tWJr%2BO6c%2BeWWBhmJkzzBGxGo2%2FblgoF9rcBHVUR9kUq5R%2BQm%2FO04zN06%2BDW5Q%3D%3D';
 const String NUMBER = '&_type=json&elevator_no=';
 
-const String URL_INSPECT = 'http://openapi.elevator.go.kr/openapi/service/ElevatorInformationService/getElvtrInspctInqireN?ServiceKey=$KEY';
+const String URL_INSPECT = 'http://openapi.elevator.go.kr/openapi/service/ElevatorInformationService/getElvtrInspctInqireM?ServiceKey=$KEY';
 
 
 const List<String> PARAMS = [
@@ -108,7 +108,7 @@ const List<String> TITLES = [
 ];
 
 const addresses = {
-  '서울특별시': [
+  '서울': [
     '강남구',
     '강동구',
     '강북구',
@@ -135,7 +135,7 @@ const addresses = {
     '중구',
     '중랑구',
   ],
-  '부산광역시': [
+  '부산': [
     '강서구',
     '금정구',
     '기장군',
@@ -153,7 +153,7 @@ const addresses = {
     '중구',
     '해운대구',
   ],
-  '인천광역시': [
+  '인천': [
     '강화군',
     '계양구',
     '남동구',
@@ -162,40 +162,42 @@ const addresses = {
     '부평구',
     '서구',
     '연수구',
-    '웅진군',
+    '옹진군',
     '중구',
   ],
-  '대구광역시': [
+  '대구': [
+    '군위군',
     '남구',
     '달서구',
+    '달성군',
     '동구',
     '북구',
     '서구',
     '수성구',
     '중구',
   ],
-  '광주광역시': [
+  '광주': [
     '광산구',
     '남구',
     '동구',
     '북구',
     '서구',
   ],
-  '대전광역시': [
+  '대전': [
     '대덕구',
     '동구',
     '서구',
     '유성구',
     '중구',
   ],
-  '울산광역시': [
+  '울산': [
     '남구',
     '동구',
     '북구',
     '울주군',
     '중구',
   ],
-  '경기도': [
+  '경기': [
     '가평군',
     '고양시 덕양구',
     '고양시 일산동구',
@@ -239,13 +241,14 @@ const addresses = {
     '하남시',
     '화성시',
   ],
-  '강원도': [
+  '강원': [
     '강릉시',
     '고성군',
     '동해시',
     '삼척시',
     '속초시',
     '양구군',
+    '양양군',
     '영월군',
     '원주시',
     '인제군',
@@ -257,7 +260,7 @@ const addresses = {
     '화천군',
     '횡성군',
   ],
-  '충청북도': [
+  '충북': [
     '괴산군',
     '단양군',
     '보은군',
@@ -273,7 +276,7 @@ const addresses = {
     '청주시 흥덕구',
     '충주시',
   ],
-  '충청남도': [
+  '충남': [
     '계룡시',
     '공주시',
     '금산군',
@@ -291,7 +294,7 @@ const addresses = {
     '태안군',
     '홍성군',
   ],
-  '전라북도': [
+  '전북': [
     '고창군',
     '군산시',
     '김제시',
@@ -309,7 +312,7 @@ const addresses = {
     '정읍시',
     '진안군',
   ],
-  '전라남도': [
+  '전남': [
     '강진군',
     '고흥군',
     '곡성군',
@@ -333,12 +336,11 @@ const addresses = {
     '해남군',
     '화순군',
   ],
-  '경상북도': [
+  '경북': [
     '경산시',
     '경주시',
     '고령군',
     '구미시',
-    '군위군',
     '김천시',
     '문경시',
     '봉화군',
@@ -359,7 +361,7 @@ const addresses = {
     '포항시 남구',
     '포항시 북구',
   ],
-  '경상남도': [
+  '경남': [
     '거제시',
     '거창군',
     '고성군',
@@ -383,11 +385,11 @@ const addresses = {
     '함양군',
     '합천군',
   ],
-  '제주특별자치도': [
+  '제주': [
     '서귀포시',
     '제주시',
   ],
-  '세종특별자치시': [
+  '세종': [
     '세종특별자치시',
   ],
 };

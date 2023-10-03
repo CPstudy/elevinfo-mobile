@@ -55,7 +55,7 @@ class DatabaseHelper {
   Future<List<Map<String, dynamic>>?> historyAllList() async {
     Database? db = await elevDB;
 
-    List<Map<String, dynamic>>? list = await db?.rawQuery('SELECT * FROM $historyTable ORDER BY id DESC LIMIT 0, 100');
+    List<Map<String, dynamic>>? list = await db?.rawQuery('SELECT * FROM $historyTable WHERE search_type != 1 ORDER BY id DESC LIMIT 0, 100');
     return list;
   }
 

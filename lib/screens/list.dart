@@ -5,13 +5,14 @@ import 'package:elevinfo/screens/result.dart';
 
 class ListScreen extends StatefulWidget {
 
-  final String address1;
-  final String address2;
+  final String sido;
+  final String sigungu;
+  final String building;
 
-  ListScreen(this.address1, this.address2);
+  ListScreen(this.sido, this.sigungu, this.building);
 
   @override
-  _ListScreenState createState() => _ListScreenState(this.address1, this.address2);
+  _ListScreenState createState() => _ListScreenState(this.sido, this.sigungu, this.building);
 }
 
 class _ListScreenState extends State<ListScreen> {
@@ -20,8 +21,9 @@ class _ListScreenState extends State<ListScreen> {
   final double textSize = 16;
   final double subTextSize = 12;
 
-  String? address1;
-  String? address2;
+  String? sido;
+  String? sigungu;
+  String? building;
   int page = 1;
   int beforeCount = -1;
   bool hasNextPage = true;
@@ -32,7 +34,7 @@ class _ListScreenState extends State<ListScreen> {
   List<Elevator> elevators = [];
   DataManager? dataManager;
 
-  _ListScreenState(this.address1, this.address2);
+  _ListScreenState(this.sido, this.sigungu, this.building);
 
   @override
   void initState() {
@@ -65,7 +67,7 @@ class _ListScreenState extends State<ListScreen> {
       setState(() {
         textTitle = '검색 중...';
       });
-      List<Elevator> list = await dataManager!.getElevatorList(widget.address1, widget.address2, page);
+      List<Elevator> list = await dataManager!.getElevatorList(widget.sido, widget.sigungu, widget.building, page);
 
       setState(() {
         for (int i = 0; i < list.length; i++) {
@@ -91,7 +93,7 @@ class _ListScreenState extends State<ListScreen> {
   Widget listItem(int index) {
     return GestureDetector(
         onTap: () async {
-          await DatabaseHelper().addHistoryAddressToNo(elevators[index].no!, address1, address2);
+          await DatabaseHelper().addHistoryNumber(elevators[index].no!);
           Navigator.push(context, MaterialPageRoute(builder: (context) => ResultScreen(elevators[index])));
         },
         child: Container(
