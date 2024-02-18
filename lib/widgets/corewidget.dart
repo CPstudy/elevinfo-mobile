@@ -161,7 +161,6 @@ class _TitleScaffoldState extends State<TitleScaffold> {
             child: Icon(
               (Platform.isIOS) ? Icons.arrow_back_ios : Icons.arrow_back,
               size: 24,
-              color: Colors.white,
             ),
           ),
         )
@@ -202,31 +201,14 @@ class _TitleScaffoldState extends State<TitleScaffold> {
               visible: widget.title == null && widget.title! == '' || !widget.visibilityTitle ? false : true,
               child: Align(
                   alignment: Alignment.center,
-                  child: Stack(
-                    children: <Widget>[
-                      // Stroked text as border.
-                      Text(
-                        widget.title ?? '',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: FONT_FAMILY,
-                          foreground: Paint()
-                            ..style = PaintingStyle.stroke
-                            ..strokeWidth = 2
-                            ..color = Colors.black38,
-                        ),
-                      ),
-                      // Solid text as fill.
-                      Text(
-                        widget.title ?? '',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: FONT_FAMILY,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  )
+                  child: Text(
+                    widget.title ?? '',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontFamily: FONT_FAMILY,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
               ),
             ),
             Row(
@@ -243,29 +225,25 @@ class _TitleScaffoldState extends State<TitleScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: Container(
-          height: double.infinity,
-          color: Colors.transparent,
-          child: Stack(
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Visibility(
-                    visible: widget.titleBar,
-                    child: titleBar(),
+      body: Container(
+        height: double.infinity,
+        color: Colors.transparent,
+        child: Stack(
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Visibility(
+                  visible: widget.titleBar,
+                  child: titleBar(),
+                ),
+                Expanded(
+                  child: Container(
+                    child: widget.body,
                   ),
-                  Expanded(
-                    child: Container(
-                      child: widget.body,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

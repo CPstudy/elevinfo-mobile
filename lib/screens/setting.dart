@@ -216,7 +216,6 @@ class _SettingScreenState extends State<SettingScreen> {
                       child: Text(
                         '버전',
                         style: TextStyle(
-                          color: Theme.of(context).primaryColor,
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
                           fontFamily: FONT_FAMILY
@@ -247,7 +246,6 @@ class _SettingScreenState extends State<SettingScreen> {
                       child: Text(
                         '정보 제공',
                         style: TextStyle(
-                          color: Theme.of(context).primaryColor,
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
                           fontFamily: FONT_FAMILY

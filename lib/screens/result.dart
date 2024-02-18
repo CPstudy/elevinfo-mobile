@@ -221,26 +221,12 @@ class _ResultScreenState extends State<ResultScreen> {
             SingleChildScrollView(
               child: SafeArea(
                 top: false,
-                child: Container(
-                    width: double.infinity,
+                child: Card(
                     margin: EdgeInsets.only(
-                      left: Dimens.marginSmall,
-                      right: Dimens.marginSmall,
-                      top: 268,
-                      bottom: Dimens.marginSmall,
-                    ),
-                    padding: EdgeInsets.all(Dimens.marginSmall),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor,
-                      borderRadius: BorderRadius.circular(Dimens.borderRadius),
-                      boxShadow: [
-                        new BoxShadow(
-                            color: Colors.black12,
-                            offset: new Offset(0, 0),
-                            blurRadius: 3,
-                            spreadRadius: 1.0
-                        )
-                      ],
+                      left: 16,
+                      right: 16,
+                      top: 280,
+                      bottom: 16,
                     ),
                     child: ListView.separated(
                       shrinkWrap: true,
@@ -262,6 +248,9 @@ class _ResultScreenState extends State<ResultScreen> {
                           color: Colors.transparent,
                           height: 45,
                           margin: EdgeInsets.symmetric(horizontal: Dimens.marginSmall),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8,
+                          ),
                           child: Stack(
                             children: <Widget>[
                               Align(
@@ -269,7 +258,6 @@ class _ResultScreenState extends State<ResultScreen> {
                                 child: Text(
                                   titles[index],
                                   style: TextStyle(
-                                      color: Theme.of(context).primaryColor,
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
                                       fontFamily: FONT_FAMILY
@@ -293,7 +281,7 @@ class _ResultScreenState extends State<ResultScreen> {
                       separatorBuilder: (context, index) => Container(
                         width: double.infinity,
                         height: 1,
-                        color: Theme.of(context).dividerColor,
+                        color: Theme.of(context).dividerColor.withOpacity(0.1),
                       ),
                     )
                 ),

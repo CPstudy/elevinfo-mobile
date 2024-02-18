@@ -227,7 +227,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           child: Text(
             s,
             style: TextStyle(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.onSurface,
               fontSize: 26,
               fontFamily: 'NanumSquare',
             ),
@@ -272,7 +272,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         child: Icon(
           Icons.history_sharp,
           size: 24,
-          color: Colors.white,
         ),
       ),
       titleRightChild: TitleButton(
@@ -285,7 +284,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         child: Icon(
           Icons.settings,
           size: 24,
-          color: Colors.white,
         ),
       ),
       body: Column(
@@ -311,7 +309,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                             fontSize: numbers!.length == 0 ? 40 : 54,
                             fontFamily: 'NanumSquare',
                             fontWeight: FontWeight.w100,
-                            color: numbers!.length == 0 ? Colors.white.withOpacity(0.5) : Colors.white,
+                            color: number!.length == 0 ? Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.5) : Theme.of(context).textTheme.bodyMedium?.color,
                           ),
                         ),
                       );
@@ -370,7 +368,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                               children: <Widget>[
                                 Icon(
                                   Icons.search,
-                                  color: Colors.white,
                                   size: 20,
                                 ),
                                 SizedBox(
@@ -380,7 +377,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                   '주소 검색',
                                   style: TextStyle(
                                     fontSize: 14,
-                                    color: Colors.white,
                                     fontFamily: FONT_FAMILY
                                   ),
                                 ),
@@ -400,7 +396,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                 children: <Widget>[
                                   Icon(
                                     Icons.qr_code_sharp,
-                                    color: Colors.white,
                                     size: 20,
                                   ),
                                   SizedBox(
@@ -410,7 +405,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                     'QR코드',
                                     style: TextStyle(
                                       fontSize: 14,
-                                      color: Colors.white,
                                       fontFamily: FONT_FAMILY
                                     ),
                                   ),
@@ -497,8 +491,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                           alignment: Alignment.center,
                                           child: Icon(
                                             Icons.clear_rounded,
+                                            color: Theme.of(context).colorScheme.onSurface,
                                             size: 20,
-                                            color: Colors.white,
                                           ),
                                         ),
                                       ),
@@ -563,8 +557,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                       alignment: Alignment.center,
                                       child: Icon(
                                         Icons.backspace_rounded,
+                                        color: Theme.of(context).colorScheme.onSurface,
                                         size: 20,
-                                        color: Colors.white,
                                       ),
                                     ),
                                   ),
@@ -594,7 +588,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                         child: Text(
                           '검색',
                           style: TextStyle(
-                            color: Theme.of(context).textTheme.bodyText1?.color,
                             fontSize: 16,
                             fontFamily: FONT_FAMILY
                           ),

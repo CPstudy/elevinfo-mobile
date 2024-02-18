@@ -114,7 +114,7 @@ class _ListScreenState extends State<ListScreen> {
                       height: 50,
                       child: Image.asset(
                         elevators[index].image!,
-                        color: (elevators[index].no == '번호 없음') ? SColors.red : Theme.of(context).primaryColor,
+                        color: (elevators[index].no == '번호 없음') ? SColors.red : Theme.of(context).colorScheme.primary,
                       ),
                     ),
                   ],

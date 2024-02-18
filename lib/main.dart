@@ -50,9 +50,10 @@ class MyAppWithTheme extends StatelessWidget {
       child: MaterialApp(
         title: '엘베인포',
         debugShowCheckedModeBanner: false,
+        themeMode: ThemeMode.dark,
         theme: provider.getTheme(),
-        darkTheme: Config().type == SYSTEM_MODE ? provider.getDarkTheme() : null,
-        home: HomeScreen(),
+        darkTheme: provider.getDarkTheme(),
+          home: HomeScreen(),
       ),
     );
   }
