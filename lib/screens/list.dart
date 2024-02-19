@@ -91,6 +91,8 @@ class _ListScreenState extends State<ListScreen> {
   }
 
   Widget listItem(int index) {
+    final hasNoData = elevators[index].no == '번호 없음';
+
     return GestureDetector(
         onTap: () async {
           await DatabaseHelper().addHistoryNumber(elevators[index].no!);
@@ -100,21 +102,21 @@ class _ListScreenState extends State<ListScreen> {
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
-            color: (elevators[index].no == '번호 없음') ? Theme.of(context).colorScheme.error : Theme.of(context).cardColor,
+            color: hasNoData ? Theme.of(context).colorScheme.error : Theme.of(context).cardColor,
           ),
           child: Row(
             children: <Widget>[
               Container(
-                width: 50,
+                width: 60,
                 margin: EdgeInsets.all(Dimens.marginDefault),
                 child: Column(
                   children: <Widget>[
                     Container(
                       width: double.infinity,
-                      height: 50,
+                      height: 60,
                       child: Image.asset(
                         elevators[index].image!,
-                        color: (elevators[index].no == '번호 없음') ? SColors.red : Theme.of(context).colorScheme.primary,
+                        color: hasNoData ? SColors.red : Theme.of(context).colorScheme.primary,
                       ),
                     ),
                   ],
@@ -122,25 +124,52 @@ class _ListScreenState extends State<ListScreen> {
               ),
               Flexible(
                 child: Container(
-                  margin: EdgeInsets.only(top: Dimens.marginSmall, bottom: Dimens.marginSmall, right: Dimens.marginSmall),
+                  margin: EdgeInsets.only(
+                    top: Dimens.marginSmall,
+                    bottom: Dimens.marginSmall,
+                    right: Dimens.marginSmall,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
+                        '${elevators[index].building} ${elevators[index].installed}',
+                        style: TextStyle(
+                          fontSize: 17,
+                        ),
+                      ),
+                      Text(
+                        elevators[index].address!,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 13,
+                        ),
+                      ),
+                      Container(
+                        height: Dimens.marginSmall,
+                      ),
+                      Text(
                         elevators[index].no!,
-                        style: (elevators[index].no == '번호 없음') ? Theme.of(context).textTheme.headline5 : Theme.of(context).textTheme.headline4,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 13,
+                        ),
                       ),
                       Text(
                         elevators[index].company!,
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.headline4,
+                        style: TextStyle(
+                          fontSize: 13,
+                        ),
                       ),
                       Container(
                         height: Dimens.marginSmall,
                       ),
                       Text(
                         '${elevators[index].depart} ${elevators[index].type}',
-                        style: Theme.of(context).textTheme.headline5,
+                        style: TextStyle(
+                          fontSize: 13,
+                        ),
                       ),
                       SizedBox(
                         height: Dimens.marginTiny,
@@ -149,7 +178,9 @@ class _ListScreenState extends State<ListScreen> {
                         children: <Widget>[
                           Text(
                             '위치',
-                            style: Theme.of(context).textTheme.headline5,
+                            style: TextStyle(
+                              fontSize: 13,
+                            ),
                           ),
                           Container(
                               width: Dimens.marginSmall
@@ -159,7 +190,9 @@ class _ListScreenState extends State<ListScreen> {
                               '${elevators[index].building} ${elevators[index].installed}',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context).textTheme.headline5,
+                              style: TextStyle(
+                                fontSize: 13,
+                              ),
                             ),
                           ),
                         ],
@@ -168,14 +201,18 @@ class _ListScreenState extends State<ListScreen> {
                         children: <Widget>[
                           Text(
                             '구간',
-                            style: Theme.of(context).textTheme.headline5,
+                            style: TextStyle(
+                              fontSize: 13,
+                            ),
                           ),
                           Container(
                             width: Dimens.marginSmall
                           ),
                           Text(
                             elevators[index].serviceFloor!,
-                            style: Theme.of(context).textTheme.headline5,
+                            style: TextStyle(
+                              fontSize: 13,
+                            ),
                           ),
                         ],
                       ),
@@ -183,14 +220,18 @@ class _ListScreenState extends State<ListScreen> {
                         children: <Widget>[
                           Text(
                             '속력',
-                            style: Theme.of(context).textTheme.headline5,
+                            style: TextStyle(
+                              fontSize: 13,
+                            ),
                           ),
                           Container(
                               width: Dimens.marginSmall
                           ),
                           Text(
                             (elevators[index].speedMin == null) ? '' : '${elevators[index].speedMin}m/min',
-                            style: Theme.of(context).textTheme.headline5,
+                            style: TextStyle(
+                              fontSize: 13,
+                            ),
                           ),
                         ],
                       ),
@@ -198,15 +239,18 @@ class _ListScreenState extends State<ListScreen> {
                         children: <Widget>[
                           Text(
                             '모델',
-                            style: Theme.of(context).textTheme.headline5,
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
                           ),
                           Container(
                               width: Dimens.marginSmall
                           ),
-
                           Text(
                             elevators[index].model!,
-                            style: Theme.of(context).textTheme.headline5,
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
                           ),
                         ],
                       ),
@@ -232,9 +276,6 @@ class _ListScreenState extends State<ListScreen> {
             padding: EdgeInsets.all(Dimens.marginSmall),
             scrollDirection: Axis.vertical,
             itemCount: elevators.length + 1,
-            separatorBuilder: (BuildContext context, int index) => Container(
-              height: Dimens.marginSmall,
-            ),
             itemBuilder: (BuildContext context, int index){
               if(index != elevators.length) {
                 return listItem(index);
@@ -244,7 +285,11 @@ class _ListScreenState extends State<ListScreen> {
                   child: Container(),
                 );
               }
-            }
+            },
+            separatorBuilder: (BuildContext context, int index) => Divider(
+              color: Theme.of(context).dividerColor.withOpacity(0.1),
+              height: 1,
+            ),
           ),
           AnimatedOpacity(
             opacity: hasElevators ? 0.0 : 1.0,
