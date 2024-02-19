@@ -24,11 +24,11 @@ class _SearchScreenState extends State<SearchScreen> {
           width: 60,
           height: 50,
           decoration: BoxDecoration(
+            color: Colors.black26,
             borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(5),
-            bottomLeft: Radius.circular(5),
-          ),
-            color: Colors.black12,
+              topLeft: Radius.circular(5),
+              bottomLeft: Radius.circular(5),
+            ),
           ),
           child: Text(
             hint,
@@ -44,12 +44,11 @@ class _SearchScreenState extends State<SearchScreen> {
             alignment: Alignment.center,
             height: 50,
             padding: EdgeInsets.symmetric(horizontal: Dimens.marginDefault),
-            color: Colors.white70,
+            color: Colors.black26,
             child: TextField(
               controller: controller,
               keyboardAppearance: Config().type == LIGHT_MODE ? Brightness.light : Brightness.dark,
               style: TextStyle(
-                color: Colors.black,
                 fontFamily: FONT_FAMILY
               ),
               decoration: InputDecoration(
@@ -75,13 +74,13 @@ class _SearchScreenState extends State<SearchScreen> {
                 topRight: Radius.circular(5),
                 bottomRight: Radius.circular(5),
               ),
-              color: Colors.white70,
+              color: Colors.black26,
             ),
             child: Container(
               width: 16,
               height: 16,
               decoration: BoxDecoration(
-                color: Colors.black12,
+                color: Colors.white12,
                 shape: BoxShape.circle,
               ),
               child: Icon(
@@ -127,7 +126,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             Expanded(
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: Colors.white70,
+                                  color: Colors.black26,
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(5),
                                     bottomLeft: Radius.circular(5),
@@ -160,7 +159,6 @@ class _SearchScreenState extends State<SearchScreen> {
                                   child: Text(
                                     provider.address1 == '' ? sido : provider.address1,
                                     style: TextStyle(
-                                        color: Colors.black,
                                         fontSize: 14,
                                         fontFamily: FONT_FAMILY,
                                     ),
@@ -174,7 +172,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             Expanded(
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: Colors.white70,
+                                  color: Colors.black26,
                                   borderRadius: BorderRadius.only(
                                     topRight: Radius.circular(5),
                                     bottomRight: Radius.circular(5),
@@ -203,7 +201,6 @@ class _SearchScreenState extends State<SearchScreen> {
                                   child: Text(
                                     provider.address2 == '' ? sigungu : provider.address2,
                                     style: TextStyle(
-                                        color: Colors.black,
                                         fontSize: 14,
                                         fontFamily: FONT_FAMILY,
                                     ),
@@ -242,7 +239,6 @@ class _SearchScreenState extends State<SearchScreen> {
                         child: Text(
                           '검색',
                           style: TextStyle(
-                              color: Theme.of(context).textTheme.bodyText1?.color,
                               fontSize: 16,
                               fontFamily: FONT_FAMILY
                           ),
