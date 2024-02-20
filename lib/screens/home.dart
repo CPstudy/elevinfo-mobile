@@ -10,6 +10,7 @@ import 'package:elevinfo/screens/result.dart';
 import 'package:elevinfo/screens/search.dart';
 import 'package:elevinfo/screens/setting.dart';
 import 'package:elevinfo/widgets/custom_button.dart';
+import 'package:elevinfo/widgets/number_display.dart';
 import 'package:elevinfo/widgets/progress_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -251,6 +252,20 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     );
   }
 
+  List<int?> convertNumberList(String number) {
+    List<int?> numbers = List.filled(7, null);
+
+    final RegExp regExp = RegExp(r'^\d{1,4}-?\d{0,3}$');
+    if (number.length > 0 && regExp.hasMatch(number)) {
+      final characters = number.replaceAll('-', '').characters.map((e) => int.parse(e)).toList();
+      for (int i = 0; i < characters.length; i++) {
+        numbers[i] = characters[i];
+      }
+    }
+
+    return numbers;
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -302,15 +317,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                     builder: (context, child) {
                       return Container(
                         transform: Matrix4.translationValues(offsetAnimation.value, 0, 0),
-                        child: Text(
-                          number,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: numbers!.length == 0 ? 40 : 54,
-                            fontFamily: 'NanumSquare',
-                            fontWeight: FontWeight.w100,
-                            color: number!.length == 0 ? Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.5) : Theme.of(context).textTheme.bodyMedium?.color,
-                          ),
+                        child: NumberDisplay(
+                          height: 60,
+                          numbers: convertNumberList(number),
                         ),
                       );
                     }
